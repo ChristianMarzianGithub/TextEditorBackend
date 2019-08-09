@@ -2,15 +2,17 @@ package Classes;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Text {
     public ArrayList<Character> content;
-    
+    private File file;
     
     public Text(String path){
         loadText(path);
@@ -20,18 +22,13 @@ public class Text {
         return content;
     }
     
-    private int loadText(String path){
-        int retVal = 0;        
-        
-        
+    private void loadText(String path){
         content = new ArrayList();
         InputStream inputStream = null;        
-        File file = new File(path);
+        file = new File(path);
         
         int i;
         char c;
-        
-        
         
         try{
             
@@ -51,13 +48,19 @@ public class Text {
                 Logger.getLogger(Text.class.getName()).log(Level.SEVERE, null, ex);
             }            
         }
-        
-        
-       
-        
-        
-        
-        
-        return retVal;
+    }
+    
+    public void saveText(String path)   {
+        OutputStream out = null;
+        try{
+            out = new FileOutputStream(file);            
+            for(int i = 0; i < content.size(); i++){
+                out.write((int)content.get(i));
+            }
+        }catch(Exception e){
+            
+        }finally{
+            
+        }
     }
 }
